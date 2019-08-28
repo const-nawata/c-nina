@@ -1,0 +1,30 @@
+{% trans_default_domain 'prompts' %}
+
+<nav class="navbar navbar-expand-lg navbar-light dashboard-list">
+	<h2>{{ 'title.category.pl'|trans|capitalize }}</h2>
+	<button type="button" item="0" data-toggle="modal" data-target="#{{ modal_id }}"  class="btn btn-success oi oi-plus" title="{{ 'title.create'|trans|capitalize }}"></button>
+</nav>
+
+<ul class="categories">
+	{% for category in categories %}
+	<li class="btn-toolbar category" role="toolbar" aria-label="Toolbar with button categories groups">
+		<div class="btn-group cat-battons" role="group" aria-label="Category buttons">
+			<button type="button" item="{{ category.id }}" data-toggle="modal" data-target="#{{ modal_id }}" class="btn btn-secondary oi oi-pencil" title="{{ 'title.edit'|trans|capitalize }}"></button>
+			<button type="button" item="-{{ category.id }}"                                                  class="btn btn-danger oi oi-circle-x" title="{{ 'title.deactivate'|trans|capitalize }}"></button>
+		</div>
+		<span>{{ category.name }}</span>
+	</li>
+	{% endfor %}
+
+	{% for category in categories_dis %}
+	<li class="btn-toolbar category" role="toolbar" aria-label="Toolbar with button categories groups">
+		<div class="btn-group cat-battons" role="group" aria-label="Category buttons">
+			<button type="button" item="{{ category.id }}" data-toggle="modal" data-target="#{{ modal_id }}" class="btn btn-secondary oi oi-pencil" title="{{ 'title.edit'|trans|capitalize }}"></button>
+			<button type="button" item="-{{ category.id }}"                                                  class="btn btn-success oi oi-target" title="{{ 'title.activate'|trans|capitalize }}"></button>
+		</div>
+		<span style="text-decoration:line-through;">{{ category.name }}</span>
+	</li>
+	{% endfor %}
+</ul>
+
+{% include '/dialogs/category_modal.twig' %}

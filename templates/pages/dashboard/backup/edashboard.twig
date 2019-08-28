@@ -1,0 +1,109 @@
+{% extends 'layouts/base.twig' %}
+{% trans_default_domain 'prompts' %}
+{% block title %}{{ shop_name }}{% endblock %}
+
+{% block body %}
+
+{% if scope == 'category' %}
+	{%   set cat_show = 'show active' %}
+	{%   set cat_active = 'active' %}
+	{%   set prod_show = '' %}
+	{%   set prod_active = '' %}
+{% else %}
+	{%   set cat_show = '' %}
+	{%   set cat_active = '' %}
+	{%   set prod_show = 'show active' %}
+	{%   set prod_active = 'active' %}
+{% endif %}
+
+<div class="content-divider">&nbsp;</div>
+
+<ul class="nav nav-tabs" id="dashboardTab" role="tablist">
+	<li class="nav-item">
+		<a class="nav-link {{ cat_active }}" id="tab-category" data-toggle="tab" href="#category" role="tab" aria-controls="category" aria-selected="true">{{ 'title.category.pl'|trans|capitalize }}</a>
+	</li>
+	<li class="nav-item">
+		<a class="nav-link {{ prod_active }}" id="tab-product" data-toggle="tab" href="#product" role="tab" aria-controls="product" aria-selected="false">{{ 'title.product.pl'|trans|capitalize }}</a>
+	</li>
+</ul>
+
+<div class="tab-content" id="dashboardTabContent">
+	<div itemPath="{{ path('category_process') }}" class="tab-pane fade {{ cat_show }}" id="category" role="tabpanel" aria-labelledby="tab-category">
+		{% include '/pages/dashboard/ecategory.twig' with {'modal_id':'categoryModal', 'modal_label_id':'categoryModalLabel'} %}
+	</div>
+	<div itemPath="{{ path('product_form') }}" class="tab-pane fade {{ prod_show }}" id="product" role="tabpanel" aria-labelledby="tab-product">
+{#		{% include '/pages/dashboard/eproduct.twig' with {'modal_id':'productModal', 'modal_label_id':'productModalLabel'} %}#}
+	</div>
+</div>
+
+<div id="table_body"></div>
+
+
+{% include '/dialogs/modal.twig' %}
+
+{% endblock %}
+
+{% block javascripts %}
+<script type="text/javascript">
+
+$(document).ready(function(){
+	let scope
+		,dataTable
+	;
+
+
+	$("a[id^='tab-']").click(function (event) {
+		scope	= $(this).attr('id').split("-")[1]
+		;
+
+
+	$.ajax({
+		url:  "{{ path('products_table') }}",
+		type: "GET",
+		async: true,
+		dataType: "json",
+		// data: null,
+		success: function( data, textStatus, jqXHR ) {
+			{#$('#table_body').initDataTables({{ datatable_settings(datatable) }});#}
+
+			$("#table_body").html(data.html);
+		},
+		error: function( jqXHR, textStatus, errorThrown ) {
+			alert( "JS system error." );
+		}
+	});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		// tab_id = tab_id.split("-");
+
+
+    // $('#product_table').DataTable( {
+    //     "processing": true,
+    //     "serverSide": true,
+	//
+    //     "ajax": "server_processing.php"
+    // } );
+
+
+// debugger;
+// alert("scope: " + scope );
+
+
+    });
+
+});//ready end
+</script>
+{% endblock %}
