@@ -20,7 +20,7 @@
 <form id="form-resp" action="{{ path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')) }}" method="post">
 	<input type="hidden" name="searchStr" id="searchStr" value="{{ table.input.search.value }}" />
 
-{% if input.isActive is defined %}
+{% if table.input.isActive is defined %}
 	<input type="hidden" name="showActive" id="showActive" value="{{ table.input.isActive.value }}" />
 {% endif %}
 
