@@ -18,18 +18,18 @@ use Symfony\Component\Form\FormInterface;
 
 /**
  * Class ProductCategoryController
- * @Route("/category")
+ * @Route("/prodcategory")
  * @package App\Controller
  */
 class ProductCategoryController extends ControllerCore
 {
 
 /**
- * @Route("/categorytablelist", name="categories_table")
+ * @Route("/list", name="prodcategory_list")
  * @param Request $request
  * @return Response
  */
-	public function getCategoriesTable(Request $request): Response
+	public function getProdcategoryList(Request $request): Response
 	{
 		$post	= $request->request->all();
 
@@ -39,7 +39,7 @@ class ProductCategoryController extends ControllerCore
 			->add('name', TextColumn::class,[])
 
 
-//	----------  Left as example. See "templates/pages/product_category/table.template.twig"
+//	----------  Left as example to create column with HTML content. See "templates/pages/product_category/table.template.twig"
 
 //			->add('isActive', TextColumn::class,[
 //				'render' => function($value, $context){
