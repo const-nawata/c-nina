@@ -85,7 +85,7 @@ class ProdcategoryController extends ControllerCore
 				]
 			],
 
-			'headerTitle'	=> 'title.category.pl',
+			'headerTitle'	=> 'title.prodcategories',
 			'itemPath'		=> 'prodcategory_form',
 		]);
 	}

@@ -63,6 +63,7 @@ title:
     product:
         sn: товар
         pl: товари
+    prodcategories: 'Категорії товару'
     registering: реєстрація
     search: 'пошук'
     showActive: 'Показати активні'

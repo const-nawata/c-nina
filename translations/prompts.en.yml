@@ -63,6 +63,7 @@ title:
     product:
         sn: poduct
         pl: poducts
+    prodcategories: 'Product categories'
     registering: register
     search: 'search'
     showActive: 'Show active'
