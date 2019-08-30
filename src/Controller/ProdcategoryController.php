@@ -35,11 +35,11 @@ class ProdcategoryController extends ControllerCore
 
 		$table = $this->createDataTable([])
 			->setName('list_category')
-			->setTemplate('pages/product_category/table.template.twig')
+			->setTemplate('pages/prodcategory/table.template.twig')
 			->add('name', TextColumn::class,[])
 
 
-//	----------  Left as example to create column with HTML content. See "templates/pages/product_category/table.template.twig"
+//	----------  Left as example to create column with HTML content. See "templates/pages/prodcategory/table.template.twig"
 
 //			->add('isActive', TextColumn::class,[
 //				'render' => function($value, $context){
@@ -190,28 +190,6 @@ class ProdcategoryController extends ControllerCore
 				]
 			]
 		]);
-	}
-//______________________________________________________________________________
-
-/**
- * @Route("/status", name="category_change_status")
- * @param Request $request
- * @return JsonResponse
- */
-	public function changeCategoryStatus(Request $request):JsonResponse
-	{
-		$post	= $request->request->all();
-		$id		= $post['category_id'];
-
-		$em			= $this->getDoctrine()->getManager();
-		$category	= $em->find(Prodcategory::class, $id);
-		$is_active	= !$category->getIsActive();
-		$category->setIsActive( $is_active );
-
-		$em->persist($category);
-		$em->flush();
-
-		return new JsonResponse([ 'success'	=> true, 'scope'=>'category' ]);
 	}
 //______________________________________________________________________________
 
