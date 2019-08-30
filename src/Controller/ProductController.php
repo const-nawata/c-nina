@@ -70,11 +70,11 @@ class ProductController extends ControllerCore
 //______________________________________________________________________________
 
 /**
- * @Route("/producttablelist", name="products_table")
+ * @Route("/list", name="product_list")
  * @param Request $request
  * @return JsonResponse
  */
-	public function getProductsTable(Request $request): Response
+	public function getProductList(Request $request): Response
 	{
 		$post	= $request->request->all();
 

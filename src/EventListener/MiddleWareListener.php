@@ -68,7 +68,7 @@ class MiddleWareListener
 		$method	= $args[0]->attributes->get('_controller');
 
 		switch( $method ){
-			case 'App\Controller\ProductController::getProductsTable':
+			case 'App\Controller\ProductController::getProductList':
 				$this->processShowIndex('product:showActive', $args);
 			break;
 
