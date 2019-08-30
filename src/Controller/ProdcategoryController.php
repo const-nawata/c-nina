@@ -17,11 +17,11 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Form\FormInterface;
 
 /**
- * Class ProductCategoryController
+ * Class ProdcategoryController
  * @Route("/prodcategory")
  * @package App\Controller
  */
-class ProductCategoryController extends ControllerCore
+class ProdcategoryController extends ControllerCore
 {
 
 /**
@@ -98,7 +98,7 @@ class ProductCategoryController extends ControllerCore
 	private function generateProdcategoryForm(Prodcategory $category ): FormInterface
 	{
 		return $this->createForm(ProdcategoryForm::class, $category, [
-			'action' => $this->generateUrl('category_save'),
+			'action' => $this->generateUrl('prodcategory_save'),
 			'method' => 'POST'
 				,'attr' => [
 					'id'			=> 'dialog_form',
@@ -133,11 +133,11 @@ class ProductCategoryController extends ControllerCore
 //______________________________________________________________________________
 
 /**
- * @Route("/save", name="category_save")
+ * @Route("/save", name="prodcategory_save")
  * @param Request $request
  * @return JsonResponse
  */
-	public function saveCategory(Request $request): JsonResponse
+	public function saveProdcategory(Request $request): JsonResponse
 	{
 		$post	= $request->request->all()['prodcategory_form'];
 

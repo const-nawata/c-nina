@@ -89,7 +89,7 @@ class AuxTools implements AuxToolsInterface
 		return [
 			'showActive'	=> [
 				'product'	=> 'checked',
-				'category'	=> 'checked'
+				'prodcategory'	=> 'checked'
 			]
 		];
 	}

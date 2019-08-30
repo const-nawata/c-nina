@@ -72,8 +72,8 @@ class MiddleWareListener
 				$this->processShowIndex('product:showActive', $args);
 			break;
 
-			case 'App\Controller\ProductCategoryController::getProdcategoryList':
-				$this->processShowIndex('category:showActive', $args);
+			case 'App\Controller\ProdcategoryController::getProdcategoryList':
+				$this->processShowIndex('prodcategory:showActive', $args);
 			break;
 		}
 
