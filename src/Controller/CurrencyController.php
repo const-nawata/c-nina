@@ -102,7 +102,8 @@ $content	= '<div>Currency form</div>';
  */
 	public function saveCurrency(Request $request): JsonResponse
 	{
-		$post	= $request->request->all()['product_category_form'];
+	/*
+		$post	= $request->request->all()['prodcategory_form'];
 		$error	= ['message' => '', 'field' => ''];
 		$search	= '';
 
@@ -143,6 +144,10 @@ $content	= '<div>Currency form</div>';
 			'searchStr'	=> $search,
 			'showActive'=> ($category->getIsActive() ? 'checked' : '')
 		]);
+
+
+
+		*/
 	}
 //______________________________________________________________________________
 

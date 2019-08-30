@@ -4,7 +4,7 @@
 {{ form_start(categoryForm) }}
 		<div class="form-group row">
 			<div class="col-sm-3">
-				{{ form_label(categoryForm.name, 'form.denomination'|trans|capitalize, {'label_attr':{'class':'col-sm-2 col-form-label col-form-label-sm', 'for':'product_category_form_name'}} ) }}
+				{{ form_label(categoryForm.name, 'form.denomination'|trans|capitalize, {'label_attr':{'class':'col-sm-2 col-form-label col-form-label-sm', 'for':'prodcategory_form_name'}} ) }}
 			</div>
 			<div class="col-sm-9">
 				{{ form_widget(categoryForm.name ) }}
@@ -14,7 +14,7 @@
 
 		<div class="form-group row">
 			<div class="col-sm-3">
-				{{ form_label(categoryForm.description, 'form.description'|trans|capitalize, {'label_attr':{'class':'col-sm-2 col-form-label col-form-label-sm', 'for':'product_category_form_name'}} ) }}
+				{{ form_label(categoryForm.description, 'form.description'|trans|capitalize, {'label_attr':{'class':'col-sm-2 col-form-label col-form-label-sm', 'for':'prodcategory_form_name'}} ) }}
 			</div>
 			<div class="col-sm-9">
 				{{ form_widget(categoryForm.description ) }}
@@ -23,7 +23,7 @@
 
 		<div class="form-group row">
 			<div class="col-sm-3">
-				{{ form_label(categoryForm.isActive, 'form.active.f'|trans|capitalize, {'label_attr':{'class':'col-sm-2 col-form-label col-form-label-sm', 'for':'product_category_form_name'}} ) }}
+				{{ form_label(categoryForm.isActive, 'form.active.f'|trans|capitalize, {'label_attr':{'class':'col-sm-2 col-form-label col-form-label-sm', 'for':'prodcategory_form_name'}} ) }}
 			</div>
 
 			<div class="col-sm-9 from-check-box">

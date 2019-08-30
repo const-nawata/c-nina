@@ -2,39 +2,39 @@
 
 namespace App\Repository;
 
-use App\Entity\ProductCategory;
+use App\Entity\Prodcategory;
 
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Psr\Log\LoggerInterface;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
 /**
- * @method ProductCategory|null find($id, $lockMode = null, $lockVersion = null)
- * @method ProductCategory|null findOneBy(array $criteria, array $orderBy = null)
- * @method ProductCategory[]    findAll()
- * @method ProductCategory[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method Prodcategory|null find($id, $lockMode = null, $lockVersion = null)
+ * @method Prodcategory|null findOneBy(array $criteria, array $orderBy = null)
+ * @method Prodcategory[]    findAll()
+ * @method Prodcategory[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class ProductCategoryRepository extends ServiceEntityRepository
+class ProdcategoryRepository extends ServiceEntityRepository
 {
 	protected $logger;
 
     public function __construct( RegistryInterface $registry, LoggerInterface $logger )
     {
     	$this->logger	= $logger;
-        parent::__construct($registry, ProductCategory::class);
+        parent::__construct($registry, Prodcategory::class);
     }
 //______________________________________________________________________________
 
 	/**
 	 * @param integer $id
-	 * @return array: ProductCategory data
+	 * @return array: Prodcategory data
 	 */
 	public function getFormData( $id=0 ): array
 	{
 		if( $id > 0){
 			$category = $this->find($id);
 		}else{
-			$category = new ProductCategory();
+			$category = new Prodcategory();
 		}
 
 		return [
@@ -52,7 +52,7 @@ class ProductCategoryRepository extends ServiceEntityRepository
 	{
 		$category	= ( $post['id'] > 0 )
 			? $this->find( $post['id'] )
-			: new ProductCategory();
+			: new Prodcategory();
 
 		$category->setName($post['name']);
 		$category->setDescription($post['description']);

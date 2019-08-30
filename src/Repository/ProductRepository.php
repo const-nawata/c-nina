@@ -2,7 +2,7 @@
 namespace App\Repository;
 
 use App\Entity\Product;
-use App\Entity\ProductCategory;
+use App\Entity\Prodcategory;
 
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Psr\Log\LoggerInterface;
@@ -42,7 +42,7 @@ class ProductRepository extends ServiceEntityRepository
 			$product->setTradePrice(0.0);
 		}
 
-		$categories	= $this->_em->getRepository(ProductCategory::class)->findBy([],['name'=>'ASC']);
+		$categories	= $this->_em->getRepository(Prodcategory::class)->findBy([],['name'=>'ASC']);
 
 		$form_categories	= [];
 
@@ -64,7 +64,7 @@ class ProductRepository extends ServiceEntityRepository
 			$product->removeCategory( $old_category );
 
 		foreach( $formCategories as $ategory_id )
-			$product->addCategory($this->_em->getRepository(ProductCategory::class)->find($ategory_id));
+			$product->addCategory($this->_em->getRepository(Prodcategory::class)->find($ategory_id));
 
 		return $product;
 	}

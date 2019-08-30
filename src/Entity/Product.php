@@ -64,7 +64,7 @@ class Product
     private $article;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\ProductCategory", inversedBy="products")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Prodcategory", inversedBy="products")
      */
     private $categories;
 
@@ -173,14 +173,14 @@ class Product
     }
 
     /**
-     * @return Collection|ProductCategory[]
+     * @return Collection|Prodcategory[]
      */
     public function getCategories(): Collection
     {
         return $this->categories;
     }
 
-    public function addCategory(ProductCategory $category): self
+    public function addCategory(Prodcategory $category): self
     {
         if (!$this->categories->contains($category)) {
             $this->categories[] = $category;
@@ -189,7 +189,7 @@ class Product
         return $this;
     }
 
-    public function removeCategory(ProductCategory $category): self
+    public function removeCategory(Prodcategory $category): self
     {
         if ($this->categories->contains($category)) {
             $this->categories->removeElement($category);

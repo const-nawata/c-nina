@@ -2,7 +2,7 @@
 namespace App\Controller;
 
 use App\Form\ProductCategoryForm;
-use App\Entity\ProductCategory;
+use App\Entity\Prodcategory;
 
 use Omines\DataTablesBundle\Adapter\Doctrine\ORM\SearchCriteriaProvider;
 use Doctrine\ORM\QueryBuilder;
@@ -48,11 +48,11 @@ class ProductCategoryController extends ControllerCore
 //			])
 
 			->createAdapter(ORMAdapter::class, [
-				'entity' => ProductCategory::class,
+				'entity' => Prodcategory::class,
 				'query' => function (QueryBuilder $builder) {
 					$builder
 						->select('pc')
-						->from(ProductCategory::class, 'pc')
+						->from(Prodcategory::class, 'pc')
 					;
 				},
 				'criteria' => [
@@ -86,16 +86,16 @@ class ProductCategoryController extends ControllerCore
 			],
 
 			'headerTitle'	=> 'title.category.pl',
-			'itemPath'		=> 'category_form',
+			'itemPath'		=> 'prodcategory_form',
 		]);
 	}
 //______________________________________________________________________________
 
 	/**
-	 * @param ProductCategory $category
+	 * @param Prodcategory $category
 	 * @return FormInterface
 	 */
-	private function generateProdCatForm( ProductCategory $category ): FormInterface
+	private function generateProdcategoryForm(Prodcategory $category ): FormInterface
 	{
 		return $this->createForm(ProductCategoryForm::class, $category, [
 			'action' => $this->generateUrl('category_save'),
@@ -109,19 +109,19 @@ class ProductCategoryController extends ControllerCore
 //______________________________________________________________________________
 
 /**
- * @Route("/form", name="category_form")
+ * @Route("/form", name="prodcategory_form")
  * @param Request $request
  * @return JsonResponse
  */
-	public function getCategoryForm(Request $request):JsonResponse
+	public function getProdcategoryForm(Request $request):JsonResponse
 	{
 		$id	= $request->query->get('id');
-		$prod_cat_repo	= $this->getDoctrine()->getRepository(ProductCategory::class);
+		$prod_cat_repo	= $this->getDoctrine()->getRepository(Prodcategory::class);
 
 		$data		= $prod_cat_repo->getFormData( $id );
 		$category	= $data['entity'];
 
-		$form = $this->generateProdCatForm($category);
+		$form = $this->generateProdcategoryForm($category);
 
 		$content	= $this->render('dialogs/category_modal.twig',[
 			'categoryForm'	=> $form->createView(),
@@ -139,7 +139,16 @@ class ProductCategoryController extends ControllerCore
  */
 	public function saveCategory(Request $request): JsonResponse
 	{
-		$post	= $request->request->all()['product_category_form'];
+
+
+//$pppsot	= $request->request->all();
+//
+//$this->logger->info(print_r(  $pppsot,1),[__FILE__]);
+
+		$psot	= $request->request->all()['prodcategory_form'];
+
+
+
 		$error	= ['message' => '', 'field' => ''];
 		$search	= '';
 
@@ -147,7 +156,7 @@ class ProductCategoryController extends ControllerCore
 		$con->beginTransaction();
 
 		try {
-			$repo		= $this->getDoctrine()->getRepository(ProductCategory::class);
+			$repo		= $this->getDoctrine()->getRepository(Prodcategory::class);
 			$data		= $repo->getFormData($post['id']);
 			$category	= $data['entity'];
 
@@ -204,7 +213,7 @@ class ProductCategoryController extends ControllerCore
 		$id		= $post['category_id'];
 
 		$em			= $this->getDoctrine()->getManager();
-		$category	= $em->find(ProductCategory::class, $id);
+		$category	= $em->find(Prodcategory::class, $id);
 		$is_active	= !$category->getIsActive();
 		$category->setIsActive( $is_active );
 
