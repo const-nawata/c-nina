@@ -1,7 +1,7 @@
 <?php
 namespace App\Controller;
 
-use App\Form\ProductCategoryForm;
+use App\Form\ProdcategoryForm;
 use App\Entity\Prodcategory;
 
 use Omines\DataTablesBundle\Adapter\Doctrine\ORM\SearchCriteriaProvider;
@@ -97,7 +97,7 @@ class ProductCategoryController extends ControllerCore
 	 */
 	private function generateProdcategoryForm(Prodcategory $category ): FormInterface
 	{
-		return $this->createForm(ProductCategoryForm::class, $category, [
+		return $this->createForm(ProdcategoryForm::class, $category, [
 			'action' => $this->generateUrl('category_save'),
 			'method' => 'POST'
 				,'attr' => [
@@ -139,15 +139,7 @@ class ProductCategoryController extends ControllerCore
  */
 	public function saveCategory(Request $request): JsonResponse
 	{
-
-
-//$pppsot	= $request->request->all();
-//
-//$this->logger->info(print_r(  $pppsot,1),[__FILE__]);
-
-		$psot	= $request->request->all()['prodcategory_form'];
-
-
+		$post	= $request->request->all()['prodcategory_form'];
 
 		$error	= ['message' => '', 'field' => ''];
 		$search	= '';
@@ -160,8 +152,7 @@ class ProductCategoryController extends ControllerCore
 			$data		= $repo->getFormData($post['id']);
 			$category	= $data['entity'];
 
-			$form = $this->generateProdCatForm($category);
-
+			$form = $this->generateProdcategoryForm($category);
 			$form->handleRequest( $request );
 
 			if( $success = ($form->isSubmitted() && $form->isValid()) ) {
