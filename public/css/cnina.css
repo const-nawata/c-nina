@@ -1,4 +1,6 @@
-modal@CHARSET "UTF-8";
+table.table tbody tr td.number-list-sell{
+	text-align: right;
+}
 
 table.table.dataTable.no-footer{
 	border-top: 0;
@@ -38,6 +40,7 @@ table.table thead.thead-light tr th{
 	vertical-align: middle;
 	border-color: #bfc1c3;
 }
+
 table.table thead.thead-light tr th,
 table.table tbody tr td{
 	border-bottom: 0;
@@ -195,7 +198,6 @@ div.modal-dialog div.modal-content div div.modal-body form div.form-group.row di
 	padding-right: 0;
 }
 div.modal-dialog div.modal-content div div.modal-body form div.form-group.row div.from-check-box input{
-	/*text-align: right;*/
 	width: auto;
 }
 

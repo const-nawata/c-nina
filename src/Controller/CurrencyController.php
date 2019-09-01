@@ -39,7 +39,7 @@ class CurrencyController extends ControllerCore
 			->setTemplate('pages/currency/table.template.twig')
 			->add('name', TextColumn::class,[])
 			->add('symbol', TextColumn::class,[])
-			->add('ratio', NumberColumn::class, ['searchable' => false])
+			->add('ratio', NumberColumn::class, ['searchable' => false, 'className' => 'number-list-sell'])
 
 			->createAdapter(ORMAdapter::class, [
 				'entity' => Currency::class

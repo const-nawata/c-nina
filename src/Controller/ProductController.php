@@ -83,11 +83,11 @@ class ProductController extends ControllerCore
 			->setTemplate('pages/product/table.template.twig')
 			->add('name', TextColumn::class,[])
 			->add('article', TextColumn::class,[])
-			->add('tradePrice', NumberColumn::class,['searchable' => false])
-			->add('price', NumberColumn::class,['searchable' => false])
-			->add('packs', NumberColumn::class,['searchable' => false])
-			->add('inPack', NumberColumn::class,['searchable' => false])
-			->add('outPack', NumberColumn::class,['searchable' => false])
+			->add('tradePrice', NumberColumn::class,['searchable' => false, 'className' => 'number-list-sell'])
+			->add('price', NumberColumn::class,['searchable' => false, 'className' => 'number-list-sell'])
+			->add('packs', NumberColumn::class,['searchable' => false, 'className' => 'number-list-sell'])
+			->add('inPack', NumberColumn::class,['searchable' => false, 'className' => 'number-list-sell'])
+			->add('outPack', NumberColumn::class,['searchable' => false, 'className' => 'number-list-sell'])
 
 			->createAdapter(ORMAdapter::class, [
 				'entity' => Product::class,
