@@ -13,6 +13,7 @@ button:
     sign-in: вхід
 
 form:
+    abbreviation: скорочено
     active:
         a: активно
         f: активна
@@ -31,6 +32,7 @@ form:
     postcode: індекс
     price: ціна
     quantity: кількість
+    ratio-currency: курс
     retail: роздріб
     surname: прізвище
     username: логін

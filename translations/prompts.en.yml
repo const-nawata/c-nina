@@ -13,6 +13,7 @@ button:
     sign-in: 'Sign in'
 
 form:
+    abbreviation: abbreviation
     active:
         a: active
         f: active
@@ -31,6 +32,7 @@ form:
     postcode: postcode
     price: price
     quantity: quantity
+    ratio-currency: ratio
     retail: retail
     surname: surname
     username: login
