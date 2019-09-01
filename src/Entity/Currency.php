@@ -37,7 +37,7 @@ class Currency
     private $symbol;
 
     /**
-     * @ORM\Column(type="float")
+     * @ORM\Column(type="decimal", precision=10, scale=2)
      */
     private $ratio;
 
@@ -70,12 +70,12 @@ class Currency
         return $this;
     }
 
-    public function getRatio(): ?float
+    public function getRatio()
     {
         return $this->ratio;
     }
 
-    public function setRatio(float $ratio): self
+    public function setRatio($ratio): self
     {
         $this->ratio = $ratio;
 

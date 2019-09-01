@@ -8,6 +8,7 @@ use Omines\DataTablesBundle\Adapter\Doctrine\ORM\SearchCriteriaProvider;
 use Doctrine\ORM\QueryBuilder;
 
 use Omines\DataTablesBundle\Adapter\Doctrine\ORMAdapter;
+use Omines\DataTablesBundle\Column\NumberColumn;
 use Omines\DataTablesBundle\Column\TextColumn;
 
 use Symfony\Component\HttpFoundation\Request;
@@ -37,9 +38,11 @@ class CurrencyController extends ControllerCore
 			->setName('list_category')
 			->setTemplate('pages/currency/table.template.twig')
 			->add('name', TextColumn::class,[])
+			->add('symbol', TextColumn::class,[])
+			->add('ratio', NumberColumn::class, ['searchable' => false])
 
 			->createAdapter(ORMAdapter::class, [
-				'entity' => Currency::class,
+				'entity' => Currency::class
 			])
 			->handleRequest($request);
 
