@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\Currency;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
+use Psr\Log\LoggerInterface;
 
 /**
  * @method Currency|null find($id, $lockMode = null, $lockVersion = null)
@@ -14,37 +15,25 @@ use Doctrine\Common\Persistence\ManagerRegistry;
  */
 class CurrencyRepository extends ServiceEntityRepository
 {
-    public function __construct(ManagerRegistry $registry)
+	protected $logger;
+
+    public function __construct( ManagerRegistry $registry, LoggerInterface $logger )
     {
+    	$this->logger	= $logger;
         parent::__construct($registry, Currency::class);
     }
+//______________________________________________________________________________
 
-    // /**
-    //  * @return Currency[] Returns an array of Currency objects
-    //  */
-    /*
-    public function findByExampleField($value)
-    {
-        return $this->createQueryBuilder('c')
-            ->andWhere('c.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('c.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
+	/**
+	 * @param integer $id
+	 * @return array: Currency data
+	 */
+	public function getFormData( $id=0 ): array
+	{
+		return [
+			'entity'	=> ( $id > 0 ?  $this->find($id) : new Currency())
+		];
+	}
+//______________________________________________________________________________
 
-    /*
-    public function findOneBySomeField($value): ?Currency
-    {
-        return $this->createQueryBuilder('c')
-            ->andWhere('c.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
 }

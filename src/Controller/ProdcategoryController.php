@@ -115,16 +115,13 @@ class ProdcategoryController extends ControllerCore
  */
 	public function getProdcategoryForm(Request $request):JsonResponse
 	{
-		$id	= $request->query->get('id');
-		$prod_cat_repo	= $this->getDoctrine()->getRepository(Prodcategory::class);
-
-		$data		= $prod_cat_repo->getFormData( $id );
+		$repo		= $this->getDoctrine()->getRepository(Prodcategory::class);
+		$id			= $request->query->get('id');
+		$data		= $repo->getFormData( $id );
 		$category	= $data['entity'];
 
-		$form = $this->generateProdcategoryForm($category);
-
 		$content	= $this->render('dialogs/category_modal.twig',[
-			'categoryForm'	=> $form->createView(),
+			'categoryForm'	=> $this->generateProdcategoryForm($category)->createView(),
 			'category'		=> $category,
 		])->getContent();
 

@@ -1,7 +1,7 @@
 <?php
 namespace App\Controller;
 
-//use App\Form\ProductCategoryForm;
+use App\Form\CurrencyForm;
 use App\Entity\Currency;
 
 use Omines\DataTablesBundle\Adapter\Doctrine\ORM\SearchCriteriaProvider;
@@ -53,7 +53,7 @@ class CurrencyController extends ControllerCore
 		return $this->show($request, 'layouts/base.table.twig', [
 			'table'	=> [
 				'data'	=> $table,
-				'width' => 6,
+				'width' => 5,
 
 				'input'		=> [
 					'search'=> [
@@ -68,6 +68,23 @@ class CurrencyController extends ControllerCore
 	}
 //______________________________________________________________________________
 
+	/**
+	 * @param Currency $currency
+	 * @return FormInterface
+	 */
+	private function generateCurrencyForm(Currency $currency ): FormInterface
+	{
+		return $this->createForm(CurrencyForm::class, $currency, [
+			'action' => $this->generateUrl('currency_save'),
+			'method' => 'POST'
+				,'attr' => [
+					'id'			=> 'dialog_form',
+					'currency_id'	=> $currency->getId() ?? 0,
+				]
+		]);
+	}
+//______________________________________________________________________________
+
 /**
  * @Route("/form", name="currency_form")
  * @param Request $request
@@ -75,24 +92,15 @@ class CurrencyController extends ControllerCore
  */
 	public function getCurrencyForm(Request $request):JsonResponse
 	{
+		$repo		= $this->getDoctrine()->getRepository(Currency::class);
+		$id			= $request->query->get('id');
+		$data		= $repo->getFormData( $id );
+		$currency	= $data['entity'];
 
-/*
-		$id	= $request->query->get('id');
-		$prod_cat_repo	= $this->getDoctrine()->getRepository(ProductCategory::class);
-
-		$data		= $prod_cat_repo->getFormData( $id );
-		$category	= $data['entity'];
-
-		$form = $this->generateProdCatForm($category);
-
-		$content	= $this->render('dialogs/category_modal.twig',[
-			'categoryForm'	=> $form->createView(),
-			'category'		=> $category,
+		$content	= $this->render('dialogs/currency_modal.twig',[
+			'currencyForm'	=> $this->generateCurrencyForm($currency)->createView(),
+			'currency'		=> $currency,
 		])->getContent();
-
-/*     */
-
-$content	= '<div>Currency form</div>';
 
 		return new JsonResponse([ 'success'	=> true, 'html' => $content ]);
 	}

@@ -31,14 +31,8 @@ class ProdcategoryRepository extends ServiceEntityRepository
 	 */
 	public function getFormData( $id=0 ): array
 	{
-		if( $id > 0){
-			$category = $this->find($id);
-		}else{
-			$category = new Prodcategory();
-		}
-
 		return [
-			'entity'	=> $category
+			'entity'	=> ( $id > 0 ?  $this->find($id) : new Prodcategory())
 		];
 	}
 //______________________________________________________________________________
@@ -61,4 +55,7 @@ class ProdcategoryRepository extends ServiceEntityRepository
 		$this->_em->persist( $category );
 		$this->_em->flush();
 	}
-}
+//______________________________________________________________________________
+
+}//Class enc
+
