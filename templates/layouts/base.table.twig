@@ -61,7 +61,11 @@ function openFormModal( obj ){
 					}else{
 						$('#modal_dialog').modal('toggle');
 						$("#searchStr").val(data.table.input.search.value);
+
+	{% if table.input.isActive is defined %}
 						$("#showActive").val( data.table.input.isActive.value );
+	{% endif %}
+
 						$('form#form-resp').submit();
 					}
 				}).fail(function() {

@@ -113,8 +113,7 @@ class CurrencyController extends ControllerCore
  */
 	public function saveCurrency(Request $request): JsonResponse
 	{
-	/*
-		$post	= $request->request->all()['prodcategory_form'];
+		$post	= $request->request->all()['currency_form'];
 		$error	= ['message' => '', 'field' => ''];
 		$search	= '';
 
@@ -122,17 +121,17 @@ class CurrencyController extends ControllerCore
 		$con->beginTransaction();
 
 		try {
-			$repo		= $this->getDoctrine()->getRepository(ProductCategory::class);
+			$repo		= $this->getDoctrine()->getRepository(Currency::class);
 			$data		= $repo->getFormData($post['id']);
-			$category	= $data['entity'];
+			$currency	= $data['entity'];
 
-			$form = $this->generateProdCatForm($category);
+			$form = $this->generateCurrencyForm($currency);
 
 			$form->handleRequest( $request );
 
 			if( $success = ($form->isSubmitted() && $form->isValid()) ) {
 				$repo->saveFormData( $post );
-				$search	= $category->getName();
+				$search	= $currency->getName();
 				$con->commit();
 			}else{
 				$error_content	= $this->getFormError( $form );;
@@ -152,13 +151,15 @@ class CurrencyController extends ControllerCore
 		return new JsonResponse([
 			'success'	=> $success,
 			'error'		=> $error,
-			'searchStr'	=> $search,
-			'showActive'=> ($category->getIsActive() ? 'checked' : '')
+
+			'table'	=> [
+				'input'	=> [
+					'search'=> [
+						'value'	=> $search
+					]
+				]
+			]
 		]);
-
-
-
-		*/
 	}
 //______________________________________________________________________________
 

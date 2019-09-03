@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Currency;
+
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
 use Psr\Log\LoggerInterface;
@@ -33,6 +34,26 @@ class CurrencyRepository extends ServiceEntityRepository
 		return [
 			'entity'	=> ( $id > 0 ?  $this->find($id) : new Currency())
 		];
+	}
+//______________________________________________________________________________
+
+	/**
+	 * @param array $post
+	 * @throws \Doctrine\ORM\ORMException
+	 * @throws \Doctrine\ORM\OptimisticLockException
+	 */
+	public function saveFormData( array $post ): void
+	{
+		$entity	= ( $post['id'] > 0 )
+			? $this->find( $post['id'] )
+			: new Currency();
+
+		$entity->setName($post['name']);
+		$entity->setSymbol($post['symbol']);
+		$entity->setRatio($post['ratio']);
+
+		$this->_em->persist( $entity );
+		$this->_em->flush();
 	}
 //______________________________________________________________________________
 
