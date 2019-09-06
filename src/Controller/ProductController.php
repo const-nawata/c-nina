@@ -2,6 +2,8 @@
 namespace App\Controller;
 
 use App\Form\ProductForm;
+
+use App\Entity\Currency;
 use App\Entity\Product;
 
 use Omines\DataTablesBundle\Adapter\Doctrine\ORMAdapter;
@@ -113,6 +115,9 @@ class ProductController extends ControllerCore
 			return $response;
 		}
 
+
+		$currensy_repo	= $this->getDoctrine()->getRepository(Currency::class);
+
 		return $this->show($request, 'layouts/base.table.twig', [
 			'table'	=> [
 				'data'	=> $table,
@@ -123,8 +128,12 @@ class ProductController extends ControllerCore
 					],
 
 					'isActive'	=> [
-						'title'	=> 'title.showInStock',
 						'value'	=> empty($post['showActive']) ? '' : $post['showActive']
+					],
+
+					'currency'	=> [
+						'item' => $currensy_repo->find($post['currency']),
+						'list'	=> $currensy_repo->findAll()
 					]
 				]
 			],
@@ -134,6 +143,25 @@ class ProductController extends ControllerCore
 			'modalWidth'	=> 900,
 		]);
 	}
+//______________________________________________________________________________
+
+	/**
+	 * @Route("/selectcurrency", name="select_currency")
+	 * @param Request $request
+	 * @return JsonResponse
+	 */
+	public function selectCurrency(Request $request): JsonResponse
+	{
+
+		$success	= true;
+		$error	= ['message' => '', 'field' => ''];
+
+		return new JsonResponse([
+			'success'	=> $success,
+			'error'		=> $error
+		]);
+	}
+//______________________________________________________________________________
 
 /**
  * @Route("/save", name="product_save")

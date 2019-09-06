@@ -46,7 +46,7 @@ class MiddleWareListener
 	 * @param string $res
 	 * @param array $args
 	 */
-	private function processShowIndex( string $res, array $args ): void
+	private function processIndex( string $res, array $args ): void
 	{
 		list($entity, $ind )	= explode(':', $res);
 
@@ -69,11 +69,12 @@ class MiddleWareListener
 
 		switch( $method ){
 			case 'App\Controller\ProductController::getProductList':
-				$this->processShowIndex('product:showActive', $args);
+				$this->processIndex('product:showActive', $args);
+				$this->processIndex('product:currency', $args);
 			break;
 
 			case 'App\Controller\ProdcategoryController::getProdcategoryList':
-				$this->processShowIndex('prodcategory:showActive', $args);
+				$this->processIndex('prodcategory:showActive', $args);
 			break;
 		}
 

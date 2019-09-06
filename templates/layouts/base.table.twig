@@ -24,6 +24,10 @@
 	<input type="hidden" name="showActive" id="showActive" value="{{ table.input.isActive.value }}" />
 {% endif %}
 
+{% if table.input.currency is defined %}
+	<input type="hidden" name="currency" id="currency" value="{{ table.input.currency.item.id }}" />
+{% endif %}
+
 </form>
 
 {% include '/dialogs/modal.twig' %}
@@ -97,6 +101,7 @@ function clearSearchBtnHover( obj, size ){
 	new_size	= obj.css("padding-right");
 	obj.css("padding-right",((parseInt(new_size.substring(0,(new_size.length-2))) - size/2 )+"px"));
 }
+//______________________________________________________________________________
 
 $(function() {
 	{% if table.data != null %}
@@ -138,9 +143,9 @@ $(function() {
 
 
 		{% if table.input.isActive is defined %}
-				$("div.dataTables_filter label").prepend(
+				$("div.dataTables_filter").prepend(
 					'<div class="form-check form-check-inline">'+
-						'<label class="form-check-label" for="show_active">{{ table.input.isActive.title|trans }}</label>'+
+						'<label class="form-check-label" for="show_active">{{ 'title.showInStock'|trans }}</label>'+
 						'<input class="form-check-input" type="checkbox" id="show_active" name="show_active" value="option1" {{ table.input.isActive.value }} />'+
 					'</div>'
 				);
@@ -151,6 +156,33 @@ $(function() {
 					$("#showActive").val(checked);
 					$('form#form-resp').submit();
 				});
+		{% endif %}
+
+		{% if table.input.currency is defined %}
+				let list = '';
+
+				{% for curr in table.input.currency.list %}
+					list = list + '<a class="dropdown-item" currency="{{ curr.id }}" href="#">{{ curr.name }}</a>';
+				{% endfor %}
+
+				$("div.dataTables_filter").prepend(
+					'<div class="form-check form-check-inline">'+
+
+'<div class="btn-group">' +
+	'<button class="btn btn-sm" type="button">{{ table.input.currency.item.name }}</button>' +
+	'<button type="button" class="btn btn-sm dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>' +
+
+	'<div class="dropdown-menu">' + list + '</div>' +
+'</div>'+
+
+					'</div>'
+				);
+
+				$("a[currency]").on('click',function (event) {
+					$("#currency").val($(this).attr("currency"));
+					$('form#form-resp').submit();
+				});
+
 		{% endif %}
 
 			});
