@@ -143,6 +143,7 @@ $(function() {
 
 
 		{% if table.input.isActive is defined %}
+
 				$("div.dataTables_filter").prepend(
 					'<div class="form-check form-check-inline">'+
 						'<label class="form-check-label" for="show_active">{{ 'title.showInStock'|trans }}</label>'+
@@ -166,22 +167,19 @@ $(function() {
 				{% endfor %}
 
 				$("div.dataTables_filter").prepend(
-					'<div class="form-check form-check-inline">'+
-
-'<div class="btn-group">' +
-	'<button class="btn btn-sm" type="button">{{ table.input.currency.item.name }}</button>' +
+'<div class="btn-group currency-sel-box">' +
+	'<label class="form-check-label" for="currency_btn">{{ 'title.currency'|trans|capitalize }}</label>'+
+	'<button class="btn btn-sm" type="button" id="currency_btn">{{ table.input.currency.item.name }}</button>' +
 	'<button type="button" class="btn btn-sm dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>' +
-
 	'<div class="dropdown-menu">' + list + '</div>' +
 '</div>'+
-
-					'</div>'
+''
 				);
 
 				$("a[currency]").on('click',function (event) {
 					$("#currency").val($(this).attr("currency"));
 					$('form#form-resp').submit();
-				});
+				})
 
 		{% endif %}
 

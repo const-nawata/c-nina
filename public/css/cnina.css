@@ -14,6 +14,20 @@ div.dataTables_wrapper div.dataTables_paginate.paging_simple_numbers ul.paginati
 	margin-left: -2px;
 }
 
+div.dataTables_wrapper div.dataTables_filter div.btn-group.currency-sel-box{
+	padding-right: 30px;
+}
+div.dataTables_wrapper div.dataTables_filter div.btn-group.currency-sel-box label{
+	padding-right: 5px;
+}
+div.dataTables_wrapper div.dataTables_filter div.btn-group.currency-sel-box button{
+	bottom: 2px;
+}
+div.dataTables_wrapper div.dataTables_filter div.form-check.form-check-inline input.form-check-input{
+	position: relative;
+	top: 2px;
+}
+
 div.dataTables_wrapper div.dataTables_filter label button.clear-search{
 	border: none;
 	background-color: transparent;
