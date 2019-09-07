@@ -80,13 +80,20 @@ class ProductController extends ControllerCore
 	{
 		$post	= $request->request->all();
 
+		$currency_repo	= $this->getDoctrine()->getRepository(Currency::class);
+		$currency		= $currency_repo->find($post['currency']);
+
 		$table = $this->createDataTable([])
 			->setName('list_product')
 			->setTemplate('pages/product/table.template.twig')
 			->add('name', TextColumn::class,[])
 			->add('article', TextColumn::class,[])
-			->add('tradePrice', NumberColumn::class,['searchable' => false, 'className' => 'number-list-sell'])
-			->add('price', NumberColumn::class,['searchable' => false, 'className' => 'number-list-sell'])
+			->add('tradePrice', NumberColumn::class,['searchable' => false, 'className' => 'number-list-sell', 'data' => function( Product $product, $value) use ($currency) {
+				return number_format(round($value * $currency->getRatio(), 2), 2, '.', '');
+			}])
+			->add('price', NumberColumn::class,['searchable' => false, 'className' => 'number-list-sell', 'data' => function( Product $product, $value) use ($currency) {
+				return number_format(round($value * $currency->getRatio(), 2), 2, '.', '');
+			}])
 			->add('packs', NumberColumn::class,['searchable' => false, 'className' => 'number-list-sell'])
 			->add('inPack', NumberColumn::class,['searchable' => false, 'className' => 'number-list-sell'])
 			->add('outPack', NumberColumn::class,['searchable' => false, 'className' => 'number-list-sell'])
@@ -115,9 +122,6 @@ class ProductController extends ControllerCore
 			return $response;
 		}
 
-
-		$currensy_repo	= $this->getDoctrine()->getRepository(Currency::class);
-
 		return $this->show($request, 'layouts/base.table.twig', [
 			'table'	=> [
 				'data'	=> $table,
@@ -132,8 +136,8 @@ class ProductController extends ControllerCore
 					],
 
 					'currency'	=> [
-						'item' => $currensy_repo->find($post['currency']),
-						'list'	=> $currensy_repo->findAll()
+						'item' => $currency,
+						'list'	=> $currency_repo->findAll()
 					]
 				]
 			],
