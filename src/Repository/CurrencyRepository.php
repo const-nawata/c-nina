@@ -57,4 +57,36 @@ class CurrencyRepository extends ServiceEntityRepository
 	}
 //______________________________________________________________________________
 
+	public function getDefault( $ratio = 1): array
+	{
+		$qb = $this->createQueryBuilder('c')
+			->andWhere('c.ratio = :ratio')
+			->setParameter('ratio', $ratio )
+			->getQuery();
+
+		$list	= $qb->execute();
+		if( count($list) > 0 ){
+			$currency	= $list[0];
+			return [
+				'id'	=> $currency->getId(),
+				'name'	=> $currency->getName()
+			];
+		}
+
+		$list	= $this->findAll();
+		if( count($list) > 0 ){
+			$currency	= $list[0];
+			return [
+				'id'	=> $currency->getId(),
+				'name'	=> $currency->getName()
+			];
+		}
+
+		return [
+			'id'	=> 0,
+			'name'	=> 'Undefined'
+		];
+	}
+//______________________________________________________________________________
+
 }

@@ -4,6 +4,9 @@ namespace App\Service;
 use phpDocumentor\Reflection\Types\Boolean;
 use Psr\Log\LoggerInterface;
 use App\CInterface\AuxToolsInterface;
+use Doctrine\ORM\EntityManagerInterface;
+
+use App\Entity\Currency;
 
 /**
  * Class AuxTools
@@ -16,9 +19,11 @@ class AuxTools implements AuxToolsInterface
 
 	const _state_file	= __DIR__.'/../../public/data/state';
 	protected $logger;
+	protected $em;
 
-	public function __construct( LoggerInterface $logger ){
-		$this->logger = $logger;
+	public function __construct( LoggerInterface $logger, EntityManagerInterface $em ){
+		$this->logger	= $logger;
+		$this->em		= $em;
 	}
 //______________________________________________________________________________
 
@@ -69,7 +74,7 @@ class AuxTools implements AuxToolsInterface
 	public function saveState( array $params ): void
 	{
 		$state	= ( !file_exists(self::_state_file) )
-			? self::getDefaultState()
+			? $this->getDefaultState()
 			: unserialize( file_get_contents(self::_state_file) );
 
 		foreach( $params as $flag => $data )
@@ -84,8 +89,11 @@ class AuxTools implements AuxToolsInterface
 	/**
 	 * @return array
 	 */
-	private static function getDefaultState(): array
+	private function getDefaultState(): array
 	{
+		$currency_repo	= $this->em->getRepository(Currency::class);
+		$default_currency	= $currency_repo->getDefault();
+
 		return [
 			'showActive'	=> [
 				'product'	=> 'checked',
@@ -93,7 +101,7 @@ class AuxTools implements AuxToolsInterface
 			],
 
 			'currency'	=> [
-				'product'	=> 1
+				'product'	=> $default_currency['id']
 			]
 		];
 	}
@@ -105,6 +113,16 @@ class AuxTools implements AuxToolsInterface
 
 		$state	= file_get_contents(self::_state_file);
 		$state	= unserialize( $state );
+
+		if( $state['currency']['product'] == 0 ){
+			$currency_repo	= $this->em->getRepository(Currency::class);
+			$default_currency	= $currency_repo->getDefault();
+
+			if($default_currency['id'] != 0){
+				$state['currency']['product']	= $default_currency['id'];
+				$this->saveState($state);
+			}
+		}
 
 		return $state;
 	}

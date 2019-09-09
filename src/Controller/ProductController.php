@@ -89,10 +89,12 @@ class ProductController extends ControllerCore
 			->add('name', TextColumn::class,[])
 			->add('article', TextColumn::class,[])
 			->add('tradePrice', NumberColumn::class,['searchable' => false, 'className' => 'number-list-sell', 'data' => function( Product $product, $value) use ($currency) {
-				return number_format(round($value * $currency->getRatio(), 2), 2, '.', '');
+				$ratio	= $currency == null ? 1.0 : $currency->getRatio();
+				return number_format(round($value * $ratio, 2), 2, '.', '');
 			}])
 			->add('price', NumberColumn::class,['searchable' => false, 'className' => 'number-list-sell', 'data' => function( Product $product, $value) use ($currency) {
-				return number_format(round($value * $currency->getRatio(), 2), 2, '.', '');
+				$ratio	= $currency == null ? 1.0 : $currency->getRatio();
+				return number_format(round($value * $ratio, 2), 2, '.', '');
 			}])
 			->add('packs', NumberColumn::class,['searchable' => false, 'className' => 'number-list-sell'])
 			->add('inPack', NumberColumn::class,['searchable' => false, 'className' => 'number-list-sell'])
@@ -136,7 +138,7 @@ class ProductController extends ControllerCore
 					],
 
 					'currency'	=> [
-						'item' => $currency,
+						'item' => $currency ?? ['id' => 0, 'name' => 'Undefined'],
 						'list'	=> $currency_repo->findAll()
 					]
 				]
