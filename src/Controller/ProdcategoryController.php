@@ -38,7 +38,6 @@ class ProdcategoryController extends ControllerCore
 			->setTemplate('pages/prodcategory/table.template.twig')
 			->add('name', TextColumn::class,[])
 
-
 //	----------  Left as example to create column with HTML content. See "templates/pages/prodcategory/table.template.twig"
 
 //			->add('isActive', TextColumn::class,[
