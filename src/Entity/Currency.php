@@ -37,9 +37,14 @@ class Currency
     private $symbol;
 
     /**
-     * @ORM\Column(type="decimal", precision=10, scale=2)
+     * @ORM\Column(type="decimal", precision=12, scale=6)
      */
     private $ratio;
+
+    /**
+     * @ORM\Column(type="boolean", nullable=true, options={"default" = true})
+     */
+    private $isAfterPos;
 
     public function getId(): ?int
     {
@@ -78,6 +83,18 @@ class Currency
     public function setRatio($ratio): self
     {
         $this->ratio = $ratio;
+
+        return $this;
+    }
+
+    public function getIsAfterPos(): ?bool
+    {
+        return $this->isAfterPos;
+    }
+
+    public function setIsAfterPos(?bool $isAfterPos): self
+    {
+        $this->isAfterPos = $isAfterPos;
 
         return $this;
     }
