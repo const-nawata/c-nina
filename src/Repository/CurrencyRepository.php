@@ -31,8 +31,15 @@ class CurrencyRepository extends ServiceEntityRepository
 	 */
 	public function getFormData( $id=0 ): array
 	{
+		if( $id > 0){
+			$entity = $this->find($id);
+		}else{
+			$entity = new Currency();
+			$entity->setIsAfterPos(true);
+		}
+
 		return [
-			'entity'	=> ( $id > 0 ?  $this->find($id) : new Currency())
+			'entity'	=> $entity
 		];
 	}
 //______________________________________________________________________________
