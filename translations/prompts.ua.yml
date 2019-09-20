@@ -34,6 +34,7 @@ form:
     quantity: кількість
     ratio-currency: курс
     retail: роздріб
+    sign: знак
     surname: прізвище
     username: логін
     wholesale: опт
