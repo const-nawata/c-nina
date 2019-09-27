@@ -18,8 +18,10 @@ form:
         a: active
         f: active
         m: active
+    after: after
     address: address
     article: article
+    before: before
     denomination: name
     description: description
     firstname: firstname
@@ -29,6 +31,7 @@ form:
     packs: packs
     password: password
     phone: phone
+    position: position
     postcode: postcode
     price: price
     quantity: quantity

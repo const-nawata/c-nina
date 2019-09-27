@@ -193,6 +193,11 @@ div.modal-dialog div.modal-content div.modal-error-content{
 	height: 20px;
 }
 
+div.modal-dialog div.modal-content div.modal-body form div.form-group.row input.position-radio{
+	position: relative;
+	top: 2px;
+}
+
 /* Modal Dialog. */
 
 	/* Product */

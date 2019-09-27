@@ -18,8 +18,10 @@ form:
         a: активно
         f: активна
         m: активен
+    after: після
     address: адреса
     article: артикул
+    before: до
     denomination: назва
     description: опис
     firstname: ім'я
@@ -29,6 +31,7 @@ form:
     packs: упаковок
     password: пароль
     phone: телефон
+    position: позиція
     postcode: індекс
     price: ціна
     quantity: кількість

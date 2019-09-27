@@ -18,6 +18,7 @@
 			</div>
 			<div class="col-sm-9">
 				{{ form_widget(currencyForm.symbol ) }}
+				<div class="modal-error-content"></div>		<!-- Dummy -->
 			</div>
 		</div>
 
@@ -28,49 +29,22 @@
 
 			<div class="col-sm-9 from-check-box">
 				{{ form_widget(currencyForm.ratio ) }}
+				<div class="modal-error-content"></div>		<!-- Dummy -->
 			</div>
 		</div>
 
 		<div class="form-group row">
 			<div class="col-sm-3">
-				{{ form_label(currencyForm.isAfterPos, 'form.ratio-currency'|trans|capitalize, {'label_attr':{'class':'col-sm-2 col-form-label col-form-label-sm', 'for':'currency_form_isAfterPos'}} ) }}
+				{{ form_label(currencyForm.isAfterPos, 'form.position'|trans|capitalize, {'label_attr':{'class':'col-sm-2 col-form-label col-form-label-sm', 'for':'currency_form_isAfterPos'}}) }}
 			</div>
 
-
-{#
-
-			<div class="col-sm-9 from-check-box">
-				{{ form_widget(currencyForm.isAfterPos ) }}
+			<div class="col-sm-6">
+				{{ form_label(currencyForm.isAfterPos[0], 'form.before'|trans|capitalize, {'label_attr':{'class':'col-form-label col-form-label-sm', 'for':'currency_form_isAfterPos_0'}}) }}&nbsp;
+				{{ form_widget(currencyForm.isAfterPos[0], {'attr':{'class':'position-radio'}}) }}
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				{{ form_label(currencyForm.isAfterPos[1], 'form.after'|trans|capitalize, {'label_attr':{'class':'col-form-label col-form-label-sm', 'for':'currency_form_isAfterPos_1'}}) }}&nbsp;
+				{{ form_widget(currencyForm.isAfterPos[1], {'attr':{'class':'position-radio'}}) }}
 			</div>
-#}
-
-
-{#{% for key,choice in currencyForm.isAfterPos.vars.choices %}#}
-
-{#<div>Key: {{ key }}</div>#}
-
-
-
-
-
-	{{ form_label(currencyForm.isAfterPos[0]) }}
-	{{ form_widget(currencyForm.isAfterPos[0]) }}
-
-
-	{{ form_label(currencyForm.isAfterPos[1]) }}
-	{{ form_widget(currencyForm.isAfterPos[1]) }}
-
-
-
-
-
-{#	{{ form_widget(currencyForm.isAfterPos["none"]) }}#}
-
-
-
-{#{% endfor %}#}
-
-
 		</div>
 {{ form_end(currencyForm) }}
 
