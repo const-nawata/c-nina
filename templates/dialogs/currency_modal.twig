@@ -36,9 +36,41 @@
 				{{ form_label(currencyForm.isAfterPos, 'form.ratio-currency'|trans|capitalize, {'label_attr':{'class':'col-sm-2 col-form-label col-form-label-sm', 'for':'currency_form_isAfterPos'}} ) }}
 			</div>
 
+
+{#
+
 			<div class="col-sm-9 from-check-box">
 				{{ form_widget(currencyForm.isAfterPos ) }}
 			</div>
+#}
+
+
+{#{% for key,choice in currencyForm.isAfterPos.vars.choices %}#}
+
+{#<div>Key: {{ key }}</div>#}
+
+
+
+
+
+	{{ form_label(currencyForm.isAfterPos[0]) }}
+	{{ form_widget(currencyForm.isAfterPos[0]) }}
+
+
+	{{ form_label(currencyForm.isAfterPos[1]) }}
+	{{ form_widget(currencyForm.isAfterPos[1]) }}
+
+
+
+
+
+{#	{{ form_widget(currencyForm.isAfterPos["none"]) }}#}
+
+
+
+{#{% endfor %}#}
+
+
 		</div>
 {{ form_end(currencyForm) }}
 
