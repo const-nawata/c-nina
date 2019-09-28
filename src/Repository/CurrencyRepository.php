@@ -58,6 +58,7 @@ class CurrencyRepository extends ServiceEntityRepository
 		$entity->setName($post['name']);
 		$entity->setSymbol($post['symbol']);
 		$entity->setRatio($post['ratio']);
+		$entity->setIsAfterPos((bool)$post['isAfterPos']);
 
 		$this->_em->persist( $entity );
 		$this->_em->flush();
