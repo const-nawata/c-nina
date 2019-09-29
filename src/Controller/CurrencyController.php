@@ -34,11 +34,17 @@ class CurrencyController extends ControllerCore
 	{
 		$post	= $request->request->all();
 
+		//	Next dummy call is necessary to get correct is_after_pos value. Hernya kakaya to.
+		$this->getDoctrine()->getRepository(Currency::class)->findAll();
+
 		$table = $this->createDataTable([])
 			->setName('list_category')
 			->setTemplate('pages/currency/table.template.twig')
 			->add('name', TextColumn::class,[])
-			->add('symbol', TextColumn::class,[])
+			->add('symbol', TextColumn::class,['className' => 'number-list-sell', 'data' => function( Currency $currency, $symbol ) {
+				$example	= rand(100,999).'.'.rand(0,9).rand(0,9);
+				return $currency->getIsAfterPos() ? $example.$symbol : $symbol.$example;
+			}])
 			->add('ratio', NumberColumn::class, ['searchable' => false, 'className' => 'number-list-sell'])
 
 			->createAdapter(ORMAdapter::class, [
