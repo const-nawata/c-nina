@@ -55,6 +55,8 @@ class CurrencyRepository extends ServiceEntityRepository
 			? $this->find( $post['id'] )
 			: new Currency();
 
+		$post['ratio']	= str_replace(',', '.', $post['ratio']);
+
 		$entity->setName($post['name']);
 		$entity->setSymbol($post['symbol']);
 		$entity->setRatio($post['ratio']);
