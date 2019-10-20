@@ -56,6 +56,8 @@ class ProductController extends ControllerCore
  */
 	public function getProductForm(Request $request ):JsonResponse
 	{
+		$post	= $request->request->all();
+
 		$id		= $request->query->get('id');
 		$data 	= $this->getDoctrine()->getRepository(Product::class)->getProductFormData( $id );
 
@@ -65,6 +67,7 @@ class ProductController extends ControllerCore
 		 $content	= $this->show($request, 'dialogs/product_modal.twig',[
 		 	'productForm'	=> $this->generateProductForm( $data )->createView(),
 		 	'product'		=> $data['product'],
+		 	'currencyId'	=> $post['currency'],
 		 	'image'			=> file_exists( $path.$filename ) ? $filename : 'default.png'
 		 ])->getContent();
 

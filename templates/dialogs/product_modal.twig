@@ -148,7 +148,9 @@ $(document).ready(function(){
 	});
 
 	$("#product_form_currency").on('change',function (event) {
-		alert("Value: "+$(this).val());
-    })
+		// alert("Value: "+$(this).val());
+	});
+
+	$("#product_form_currency").val({{ currencyId }});
 });
 </script>

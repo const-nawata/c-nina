@@ -70,6 +70,7 @@ class MiddleWareListener
 		switch( $method ){
 			case 'App\Controller\ProductController::getProductList':
 				$this->processIndex('product:showActive', $args);
+			case 'App\Controller\ProductController::getProductForm':
 				$this->processIndex('product:currency', $args);
 			break;
 

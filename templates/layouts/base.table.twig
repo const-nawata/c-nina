@@ -42,7 +42,7 @@
 function openFormModal( obj ){
 	$.ajax({
 		url:  $("div[itemPath]").attr( "itemPath" )+"?id="+obj.attr( "id" ),
-		type: "GET",
+		type: "POST",
 		async: true,
 		dataType: "json",
 		// data: null,
