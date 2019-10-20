@@ -221,8 +221,8 @@ div.modal-dialog div.modal-content div div.modal-body form div.form-group.row di
 }
 
 div.modal-dialog div.modal-content div div.modal-body form select.currency-select{
-	font-size: 12px;
-	padding: 0;
+	font-size: 13px;
+	padding: 0 0 0 5px;
 	height: 21px;
 	width: 100px;
 	font-weight: bold;
@@ -230,6 +230,7 @@ div.modal-dialog div.modal-content div div.modal-body form select.currency-selec
 	position: relative;
 	top: 8px;
 	border: none;
+	background-color: #f4dcb2;
 }
 
 	/* Collapse (categories) product component */

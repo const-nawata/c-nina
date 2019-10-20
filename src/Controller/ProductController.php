@@ -40,8 +40,9 @@ class ProductController extends ControllerCore
 			'method' => 'POST',
 			'attr' => [
 				'id'	=> 'dialog_form',
-				'product_id'			=> $productData['product']->getId() ?? 0,
-				'formCategories'=> serialize($productData['form_categories'])
+				'product_id'	=> $productData['product']->getId() ?? 0,
+				'formCategories'=> serialize($productData['form_categories']),
+				'formCurrencies'=> serialize($productData['form_currencies'])
 			]
 		])
 		;

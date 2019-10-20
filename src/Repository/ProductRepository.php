@@ -1,8 +1,9 @@
 <?php
 namespace App\Repository;
 
-use App\Entity\Product;
+use App\Entity\Currency;
 use App\Entity\Prodcategory;
+use App\Entity\Product;
 
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Psr\Log\LoggerInterface;
@@ -49,9 +50,18 @@ class ProductRepository extends ServiceEntityRepository
 		foreach ( $categories as $cat )
 			$form_categories[$cat->getName()]	= $cat->getId();
 
+
+		$currencies	= $this->_em->getRepository(Currency::class)->findBy([],['name'=>'ASC']);
+
+		$form_currencies	= [];
+
+		foreach ( $currencies as $currency )
+			$form_currencies[$currency->getName()]	= $currency->getId();
+
 		return [
 			'product'			=> $product,
-			'form_categories'	=> $form_categories
+			'form_categories'	=> $form_categories,
+			'form_currencies'	=> $form_currencies
 		];
 	}
 //______________________________________________________________________________
