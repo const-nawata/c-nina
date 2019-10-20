@@ -220,6 +220,18 @@ div.modal-dialog div.modal-content div div.modal-body form div.form-group.row di
 	width: auto;
 }
 
+div.modal-dialog div.modal-content div div.modal-body form select.currency-select{
+	font-size: 12px;
+	padding: 0;
+	height: 21px;
+	width: 100px;
+	font-weight: bold;
+	color: #881991;
+	position: relative;
+	top: 8px;
+	border: none;
+}
+
 	/* Collapse (categories) product component */
 div.modal-dialog div.modal-content div div.modal-body form div.form-group.row{
 	margin-top: 10px;
