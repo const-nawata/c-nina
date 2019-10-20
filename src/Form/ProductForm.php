@@ -34,13 +34,14 @@ class ProductForm extends AbstractType
 
 			->add('currency', ChoiceType::class, [
 				'mapped'	=> false,
-				'attr' => ['class'=> $widget_css],
+				'attr' => ['class'=> 'custom-select currency-select'],
 
     'choices'  => array(
         'Maybe' => null,
         'Yes' => true,
         'No' => false,
-    )])
+    )
+    		])
 
 			->add('formCategories', ChoiceType::class, [
 				'mapped'	=> false, 'multiple' => true, 'expanded' => true,
