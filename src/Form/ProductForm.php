@@ -32,6 +32,16 @@ class ProductForm extends AbstractType
 
 			->add('id', HiddenType::class, [ 'mapped' => false, 'data' => $options['attr']['product_id'] ] )
 
+			->add('currency', ChoiceType::class, [
+				'mapped'	=> false,
+				'attr' => ['class'=> $widget_css],
+
+    'choices'  => array(
+        'Maybe' => null,
+        'Yes' => true,
+        'No' => false,
+    )])
+
 			->add('formCategories', ChoiceType::class, [
 				'mapped'	=> false, 'multiple' => true, 'expanded' => true,
 				'choices'	=> unserialize($options['attr']['formCategories']),
