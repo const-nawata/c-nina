@@ -96,9 +96,11 @@ class ProductRepository extends ServiceEntityRepository
 		$form_categories	= empty($post['formCategories']) ? [] : $post['formCategories'];
 		$this->processProductCategories( $product, $form_categories );
 
+		$currency	= $this->_em->getRepository(Currency::class)->find($post['currency']);
+
 		$product->setName($post['name']);
-		$product->setPrice(str_replace(',', '.', $post['price']));
-		$product->setTradePrice(str_replace(',', '.', $post['tradePrice']));
+		$product->setPrice( str_replace(',', '.', $post['price']) / $currency->getRatio() );
+		$product->setTradePrice( str_replace(',', '.', $post['tradePrice']) / $currency->getRatio()  );
 		$product->setPacks($post['packs']);
 		$product->setInPack($post['inPack']);
 		$product->setOutPack($post['outPack']);
@@ -109,6 +111,24 @@ class ProductRepository extends ServiceEntityRepository
 		$this->_em->flush();
 
 		$this->replaceProductImage( $post['id'], $product->getId() );
+	}
+//______________________________________________________________________________
+
+	/**
+	 * @param Currency|int $currency
+	 * @return float;
+	 */
+	public function getConvertedPrice( $currency )
+	{
+		$price	= 1.11;
+
+		$currency	= is_int($currency)
+			? $this->_em->getRepository(Currency::class)->find($currency)
+			: $currency;
+
+
+
+		return $price;
 	}
 //______________________________________________________________________________
 

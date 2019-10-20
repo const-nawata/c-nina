@@ -33,12 +33,12 @@ class Product
     private $name;
 
     /**
-     * @ORM\Column(type="decimal", precision=10, scale=2)
+     * @ORM\Column(type="float")
      */
     private $price;
 
     /**
-     * @ORM\Column(type="decimal", precision=10, scale=2)
+     * @ORM\Column(type="float")
      */
     private $tradePrice;
 
