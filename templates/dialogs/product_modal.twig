@@ -118,9 +118,13 @@
 </form>
 
 <script>
+
+
+
+
 $(document).ready(function(){
 	var uform = document.getElementById("file-upload-from");
-
+	var currencies	= {{ currencies }};
 	$("#product_id").val( $("#product_form_id").val());
 
 	$("#file_upload_input").on("input",function(event){
@@ -150,6 +154,10 @@ $(document).ready(function(){
 	$("#product_form_currency").on('change',function (event) {
 		// alert("Value: "+$(this).val());
 	});
+
+
+debugger;
+
 
 	$("#product_form_currency").val({{ currency.id }});
 });

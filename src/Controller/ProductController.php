@@ -6,7 +6,11 @@ use App\Form\ProductForm;
 use App\Entity\Currency;
 use App\Entity\Product;
 
+use Doctrine\ORM\QueryBuilder;
+use Doctrine\ORM\Query;
+
 use Omines\DataTablesBundle\Adapter\Doctrine\ORMAdapter;
+use Omines\DataTablesBundle\Adapter\Doctrine\ORM\SearchCriteriaProvider;
 use Omines\DataTablesBundle\Column\NumberColumn;
 use Omines\DataTablesBundle\Column\TextColumn;
 
@@ -19,8 +23,6 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Form\FormInterface;
 
-use Omines\DataTablesBundle\Adapter\Doctrine\ORM\SearchCriteriaProvider;
-use Doctrine\ORM\QueryBuilder;
 
 /**
  * Class ProductController
@@ -58,9 +60,17 @@ class ProductController extends ControllerCore
 	{
 		$post	= $request->request->all();
 
+		$currency_repo	= $this->getDoctrine()->getRepository(Currency::class);
+
+		$query = $currency_repo->createQueryBuilder('c')->getQuery();
+		$currencies = $query->getResult(Query::HYDRATE_ARRAY);
+
+//$this->logger->info(print_r( $currencies ,1),[__FILE__]);
+
+
 		$id			= $request->query->get('id');
 		$data 		= $this->getDoctrine()->getRepository(Product::class)->getProductFormData( $id );
-		$currency	= $this->getDoctrine()->getRepository(Product::class)->find($post['currency']);
+//		$currency	= $this->getDoctrine()->getRepository(Product::class)->find($post['currency']);
 
 		$filename	= 'product_image_'.$id;
 		$path		= __DIR__.'/../../public/images/uploads/';
@@ -68,7 +78,9 @@ class ProductController extends ControllerCore
 		 $content	= $this->show($request, 'dialogs/product_modal.twig',[
 		 	'productForm'	=> $this->generateProductForm( $data )->createView(),
 		 	'product'		=> $data['product'],
-		 	'currency'		=> $currency,
+//		 	'currency'		=> ['id' => 1],
+		 	'currency'		=> $currency_repo->find($post['currency']),
+		 	'currencies'	=> json_encode($currencies),
 		 	'image'			=> file_exists( $path.$filename ) ? $filename : 'default.png'
 		 ])->getContent();
 
