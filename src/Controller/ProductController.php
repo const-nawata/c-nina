@@ -58,8 +58,9 @@ class ProductController extends ControllerCore
 	{
 		$post	= $request->request->all();
 
-		$id		= $request->query->get('id');
-		$data 	= $this->getDoctrine()->getRepository(Product::class)->getProductFormData( $id );
+		$id			= $request->query->get('id');
+		$data 		= $this->getDoctrine()->getRepository(Product::class)->getProductFormData( $id );
+		$currency	= $this->getDoctrine()->getRepository(Product::class)->find($post['currency']);
 
 		$filename	= 'product_image_'.$id;
 		$path		= __DIR__.'/../../public/images/uploads/';
@@ -67,7 +68,7 @@ class ProductController extends ControllerCore
 		 $content	= $this->show($request, 'dialogs/product_modal.twig',[
 		 	'productForm'	=> $this->generateProductForm( $data )->createView(),
 		 	'product'		=> $data['product'],
-		 	'currencyId'	=> $post['currency'],
+		 	'currency'		=> $currency,
 		 	'image'			=> file_exists( $path.$filename ) ? $filename : 'default.png'
 		 ])->getContent();
 
