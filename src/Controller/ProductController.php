@@ -62,15 +62,8 @@ class ProductController extends ControllerCore
 
 		$currency_repo	= $this->getDoctrine()->getRepository(Currency::class);
 
-		$query = $currency_repo->createQueryBuilder('c')->getQuery();
-		$currencies = $query->getResult(Query::HYDRATE_ARRAY);
-
-//$this->logger->info(print_r( $currencies ,1),[__FILE__]);
-
-
 		$id			= $request->query->get('id');
 		$data 		= $this->getDoctrine()->getRepository(Product::class)->getProductFormData( $id );
-//		$currency	= $this->getDoctrine()->getRepository(Product::class)->find($post['currency']);
 
 		$filename	= 'product_image_'.$id;
 		$path		= __DIR__.'/../../public/images/uploads/';
@@ -78,9 +71,8 @@ class ProductController extends ControllerCore
 		 $content	= $this->show($request, 'dialogs/product_modal.twig',[
 		 	'productForm'	=> $this->generateProductForm( $data )->createView(),
 		 	'product'		=> $data['product'],
-//		 	'currency'		=> ['id' => 1],
 		 	'currency'		=> $currency_repo->find($post['currency']),
-		 	'currencies'	=> json_encode($currencies),
+		 	'currencies'	=> $currency_repo->findAll(),
 		 	'image'			=> file_exists( $path.$filename ) ? $filename : 'default.png'
 		 ])->getContent();
 

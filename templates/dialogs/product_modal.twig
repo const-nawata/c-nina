@@ -123,8 +123,24 @@
 
 
 $(document).ready(function(){
-	var uform = document.getElementById("file-upload-from");
-	var currencies	= {{ currencies }};
+	var uform = document.getElementById("file-upload-from")
+		,item
+		,currencies	= []
+		;
+
+	{% for crncy in currencies %}
+		item	= {
+			"id": {{ crncy.id }},
+			"name": "{{ crncy.name }}",
+			"symbol": "{{ crncy.symbol }}",
+			"ratio": {{ crncy.ratio }},
+			"isAfterPos": ("{{ crncy.isAfterPos }}" !== "")
+		};
+
+		currencies.push(item);
+	{% endfor %}
+
+	{#var currencies	= {{ currencies }};#}
 	$("#product_id").val( $("#product_form_id").val());
 
 	$("#file_upload_input").on("input",function(event){
