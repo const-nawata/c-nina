@@ -118,14 +118,19 @@
 </form>
 
 <script>
-
-
-
-
 $(document).ready(function(){
-	var uform = document.getElementById("file-upload-from")
+	let uform = document.getElementById("file-upload-from")
 		,item
 		,currencies	= []
+		,currency = {
+			"id": {{ currency.id }},
+			"name": "{{ currency.name }}",
+			"symbol": "{{ currency.symbol }}",
+			"ratio": {{ currency.ratio }},
+			"isAfterPos": ("{{ currency.isAfterPos }}" !== "")
+		}
+		,tradePriceInp	= $("#product_form_tradePrice").val()
+		,priceInp	= $("#product_form_price").val()
 		;
 
 	{% for crncy in currencies %}
@@ -136,15 +141,12 @@ $(document).ready(function(){
 			"ratio": {{ crncy.ratio }},
 			"isAfterPos": ("{{ crncy.isAfterPos }}" !== "")
 		};
-
 		currencies.push(item);
 	{% endfor %}
 
-	{#var currencies	= {{ currencies }};#}
 	$("#product_id").val( $("#product_form_id").val());
 
 	$("#file_upload_input").on("input",function(event){
-
 		$.ajax({
 			url: "{{ path('uploadfile') }}",
 			data: new FormData(uform),// the formData function is available in almost all new browsers.
@@ -168,13 +170,26 @@ $(document).ready(function(){
 	});
 
 	$("#product_form_currency").on('change',function (event) {
-		// alert("Value: "+$(this).val());
+		let sel_curr=null, price;
+
+		for (let key in currencies ){
+			if(currencies[key].id === parseInt($(this).children("option:selected").val()) ){
+				sel_curr	= currencies[key];
+				break;
+			}
+		}
+
+		tradePriceInp	= (tradePriceInp / currency.ratio) * sel_curr.ratio;
+		price	= parseFloat(Math.round(tradePriceInp*100)/100).toFixed(2);
+		$("#product_form_tradePrice").val(price);
+
+		priceInp	= (priceInp / currency.ratio) * sel_curr.ratio;
+		price	= parseFloat(Math.round(priceInp*100)/100).toFixed(2);
+		$("#product_form_price").val(price);
+
+		currency	= sel_curr;
 	});
 
-
-debugger;
-
-
-	$("#product_form_currency").val({{ currency.id }});
+	$("#product_form_currency").val(currency.id);
 });
 </script>
