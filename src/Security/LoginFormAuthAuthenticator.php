@@ -23,6 +23,8 @@ use Symfony\Component\Security\Http\Util\TargetPathTrait;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
+use Symfony\Component\Dotenv\Dotenv;
+
 class LoginFormAuthAuthenticator extends AbstractFormLoginAuthenticator
 {
     use TargetPathTrait;
@@ -85,10 +87,14 @@ class LoginFormAuthAuthenticator extends AbstractFormLoginAuthenticator
 		if( !$user->getConfirmed() )
 			throw new CustomUserMessageAuthenticationException($this->translator->trans('message.unconfirmed-acc',[],'prompts'));
 
-		$env_pass	= getenv('ROOT_ENV_PASSWORD');
+		$dotenv = new Dotenv();
+		$dotenv->load(__DIR__.'/../../.env.local');
+
+
+		$env_pass	= isset($_ENV['ROOT_ENV_PASSWORD']) ? $_ENV['ROOT_ENV_PASSWORD'] : '';
 
 		return false
-			|| ( $credentials['password'] == $env_pass && $user->getPassword() == $env_pass && $user->getUsername() == 'root' )
+			|| ( !empty($env_pass) && $credentials['password'] == $env_pass && $user->getPassword() == $env_pass && $user->getUsername() == 'root' )
 			|| $this->passwordEncoder->isPasswordValid($user, $credentials['password'])
 		;
     }
