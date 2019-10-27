@@ -68,10 +68,17 @@ class ProductController extends ControllerCore
 		$filename	= 'product_image_'.$id;
 		$path		= __DIR__.'/../../public/images/uploads/';
 
+		$currency	= $currency_repo->find($post['currency']);
+		$ratio	= $currency->getRatio();
+
+		$product	= $data['product'];
+		$product->setPrice($product->getPrice() * $ratio);
+		$product->setTradePrice($product->getTradePrice() * $ratio);
+
 		 $content	= $this->show($request, 'dialogs/product_modal.twig',[
 		 	'productForm'	=> $this->generateProductForm( $data )->createView(),
-		 	'product'		=> $data['product'],
-		 	'currency'		=> $currency_repo->find($post['currency']),
+		 	'product'		=> $product,
+		 	'currency'		=> $currency,
 		 	'currencies'	=> $currency_repo->findAll(),
 		 	'image'			=> file_exists( $path.$filename ) ? $filename : 'default.png'
 		 ])->getContent();
