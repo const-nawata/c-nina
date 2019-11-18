@@ -28,9 +28,15 @@ security:
             # form_login: true
             # https://symfony.com/doc/current/security/form_login_setup.html
 
-
             logout:
                 path: user_logout
+
+# Need more control of what happens after logout?
+# Add a success_handler key under logout and
+# point it to a service id of a class that implements LogoutSuccessHandlerInterface.
+# See: https://symfony.com/doc/current/security.html
+
+
 
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
