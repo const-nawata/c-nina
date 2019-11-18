@@ -43,23 +43,6 @@ class UserController extends ControllerCore
         return $this->show($request, 'pages/user/login-form.twig', ['last_username' => $lastUsername, 'error' => $error, 'is_lgged' => 'Undef' ]);
     }
 //______________________________________________________________________________
-//
-//	private function getFormError( $form ){
-//		$fields = $form->all();
-//		$error_field = '';
-//
-//		foreach ( $fields as $field ) {
-//			$errs	= $field->getErrors(true)->__toString();;
-//
-//			if(!empty($errs)){
-//				$error_field	= $field->getName();
-//				break;
-//			}
-//		}
-//
-//		return [ $errs, $error_field ];
-//	}
-//______________________________________________________________________________
 
 	/**
 	 * @Route("/register", name="user_register")
@@ -95,12 +78,13 @@ class UserController extends ControllerCore
 			$entityManager->persist($user);
 			$entityManager->flush();
 
-			return $guardHandler->authenticateUserAndHandleSuccess(
+			$auth_result	= $guardHandler->authenticateUserAndHandleSuccess(
 				$user,
 				$request,
 				$authenticator,
 				'main'
 			);
+			return $auth_result;
 		}else{
 			$error			= $this->getFormError( $form );
 			$errs			= $error['message'];
