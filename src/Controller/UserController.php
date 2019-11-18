@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-use Symfony\Bridge\Twig\AppVariable;
+//use Symfony\Bridge\Twig\AppVariable;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
@@ -102,7 +102,8 @@ class UserController extends ControllerCore
 				'main'
 			);
 		}else{
-			list($errs, $error_field)	= $this->getFormError( $form );
+			$error			= $this->getFormError( $form );
+			$errs			= $error['message'];
 		}
 
 		return $this->show($request, 'pages/user/user-form.twig', [

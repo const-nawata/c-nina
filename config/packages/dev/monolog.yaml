@@ -8,7 +8,8 @@ monolog:
 
         app:
             type: stream
-            path: "%kernel.logs_dir%/../../../logs/debug.log"
+#            path: "%kernel.logs_dir%/../../../../logs/debug.log"
+            path: "%kernel.logs_dir%%env(custom_log_dir)%debug.log"
             level: debug
             channels: ["app"]
             formatter: Monolog\Formatter\LineFormatter   # Defined in /app/config/services.yml
