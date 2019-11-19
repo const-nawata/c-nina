@@ -4,6 +4,7 @@ namespace App\Security;
 
 use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
+use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
@@ -34,14 +35,16 @@ class LoginFormAuthAuthenticator extends AbstractFormLoginAuthenticator
     private $csrfTokenManager;
     private $passwordEncoder;
     private $translator;
+    protected $logger;
 
-    public function __construct(EntityManagerInterface $entityManager, UrlGeneratorInterface $urlGenerator, CsrfTokenManagerInterface $csrfTokenManager, UserPasswordEncoderInterface $passwordEncoder, TranslatorInterface $translator)
+    public function __construct(EntityManagerInterface $entityManager, UrlGeneratorInterface $urlGenerator, CsrfTokenManagerInterface $csrfTokenManager, UserPasswordEncoderInterface $passwordEncoder, TranslatorInterface $translator, LoggerInterface $logger)
     {
         $this->entityManager = $entityManager;
         $this->urlGenerator = $urlGenerator;
         $this->csrfTokenManager = $csrfTokenManager;
         $this->passwordEncoder = $passwordEncoder;
         $this->translator = $translator;
+        $this->logger = $logger;
     }
 
     public function supports(Request $request)
@@ -101,8 +104,15 @@ class LoginFormAuthAuthenticator extends AbstractFormLoginAuthenticator
 
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, $providerKey)
     {
+
+    	if( $providerKey == 'register' ){
+    		$url	= 'user_logout';
+    	}else{
+    		$url	= 'index';
+    	}
+
 		$targetPath = $this->getTargetPath($request->getSession(), $providerKey);
-		return $targetPath ? $targetPath : new RedirectResponse($this->urlGenerator->generate('index'));
+		return $targetPath ? $targetPath : new RedirectResponse($this->urlGenerator->generate($url));
 
         // For example : return new RedirectResponse($this->urlGenerator->generate('some_route'));
 //        throw new \Exception('TODO: provide a valid redirect inside '.__FILE__);

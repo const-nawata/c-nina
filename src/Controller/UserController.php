@@ -71,8 +71,8 @@ class UserController extends ControllerCore
 
 			$user->setConfirmed(false);
 
-//			$user->setRoles(['ADMIN']);
-			$user->setRoles(['USER']);
+//			$user->setRoles(['ROLE_ADMIN']);
+			$user->setRoles(['ROLE_CLIENT']);
 
 			$entityManager = $this->getDoctrine()->getManager();
 			$entityManager->persist($user);
@@ -82,7 +82,7 @@ class UserController extends ControllerCore
 				$user,
 				$request,
 				$authenticator,
-				'main'
+				'register'
 			);
 			return $auth_result;
 		}else{

@@ -1,4 +1,8 @@
 security:
+    role_hierarchy:
+        ROLE_ADMIN: ROLE_CLIENT
+        ROLE_ROOT: ROLE_ADMIN
+
     encoders:
         App\Entity\User:
             algorithm: auto
@@ -15,10 +19,16 @@ security:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
         main:
-            anonymous: true
+            anonymous: ~
             guard:
                 authenticators:
                     - App\Security\LoginFormAuthAuthenticator
+
+#        register:
+#            anonymous: true
+#            guard:
+#                authenticators:
+#                    - App\Security\LoginFormAuthAuthenticator
 
             # activate different ways to authenticate
 
@@ -41,5 +51,6 @@ security:
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
-        # - { path: ^/admin, roles: ROLE_ADMIN }
+        - { path: ^/product, roles: ROLE_ADMIN }
         # - { path: ^/profile, roles: ROLE_USER }
+
