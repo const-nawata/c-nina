@@ -7,7 +7,8 @@ use App\Entity\Product;
 
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Psr\Log\LoggerInterface;
-use Symfony\Bridge\Doctrine\RegistryInterface;
+//use Symfony\Bridge\Doctrine\RegistryInterface;
+use Doctrine\Common\Persistence\ManagerRegistry;
 
 
 /**
@@ -20,7 +21,7 @@ class ProductRepository extends ServiceEntityRepository
 {
 	protected $logger;
 
-	public function __construct(RegistryInterface $registry, LoggerInterface $logger)
+	public function __construct(ManagerRegistry $registry, LoggerInterface $logger)
     {
     	$this->logger	= $logger;
 		parent::__construct($registry, Product::class);

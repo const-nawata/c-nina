@@ -6,7 +6,8 @@ use App\Entity\Prodcategory;
 
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Psr\Log\LoggerInterface;
-use Symfony\Bridge\Doctrine\RegistryInterface;
+//use Symfony\Bridge\Doctrine\RegistryInterface;
+use Doctrine\Common\Persistence\ManagerRegistry;
 
 /**
  * @method Prodcategory|null find($id, $lockMode = null, $lockVersion = null)
@@ -18,7 +19,7 @@ class ProdcategoryRepository extends ServiceEntityRepository
 {
 	protected $logger;
 
-    public function __construct( RegistryInterface $registry, LoggerInterface $logger )
+    public function __construct( ManagerRegistry $registry, LoggerInterface $logger )
     {
     	$this->logger	= $logger;
         parent::__construct($registry, Prodcategory::class);
